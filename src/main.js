@@ -1,6 +1,6 @@
 // Code Practice: RNGolf
-// Name: 
-// Date:
+// Name: Robert Stager
+// Date:2/2/2026
 
 'use strict'
 

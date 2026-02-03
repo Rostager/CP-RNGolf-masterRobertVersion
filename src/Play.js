@@ -76,7 +76,7 @@ class Play extends Phaser.Scene {
 
             this.shots += 1;
 
-            this.hitMisses = this.score / this.shots * 100;
+            
         })
 
 
@@ -101,10 +101,13 @@ class Play extends Phaser.Scene {
 
 
     update() {
+        if(this.shots >0){
+        this.hitMisses = this.score / this.shots * 100;
+        } else {
+            this.hitMisses = 0
+        }
         //Create and display shot counter, score, and successful shot percentage
-        this.add.text(10,10, 'Make the shot into the cup!\nClick to shoot the ball.', { font: '16px Arial', fill: '#000000' })
-        //just the score
-       // this.add.text(10,40, `Score: ${this.shots}`, { font: '16px Arial', fill: '#000000', backgroundColor: '#FFFFFF' })
+        this.add.text(10,10, 'Make the shot into the cup!\nClick to shoot the ball.', { font: '16px Arial', fill: '#000000', backgroundColor: '#FACADE' })
         this.add.text(10,70, `Shots Taken: ${this.shots}\nSuccessful Shots: ${this.score}\nSuccess Rate: ${this.hitMisses.toFixed(2)}%`, { font: '16px Arial', fill: '#000000', backgroundColor: '#FACADE' })
     }
 

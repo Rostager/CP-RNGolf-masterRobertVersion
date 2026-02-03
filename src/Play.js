@@ -1,4 +1,5 @@
 class Play extends Phaser.Scene {
+
     constructor() {
         super('playScene')
     }
@@ -8,6 +9,7 @@ class Play extends Phaser.Scene {
         this.SHOT_VELOCITY_X = 200
         this.SHOT_VELOCITY_Y_MIN = 700
         this.SHOT_VELOCITY_Y_MAX = 1100
+
     }
 
 
@@ -19,6 +21,10 @@ class Play extends Phaser.Scene {
         this.load.image('ball', 'ball.png')
         this.load.image('wall', 'wall.png')
         this.load.image('oneway', 'one_way_wall.png')
+
+        this.shots = 0;
+        this.score = 0;
+        this.hitMisses = 0;
     }
 
 
@@ -67,6 +73,10 @@ class Play extends Phaser.Scene {
             
             this.ball.body.setVelocityX(Phaser.Math.Between(0,this.SHOT_VELOCITY_X) * shotDirectionX)
             this.ball.body.setVelocityY(Phaser.Math.Between(this.SHOT_VELOCITY_Y_MIN,this.SHOT_VELOCITY_Y_MAX) * shotDirectionY)
+
+            this.shots += 1;
+
+            this.hitMisses = this.score / this.shots * 100;
         })
 
 
@@ -74,9 +84,10 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.ball,this.cup,(ball,cup) => {
             ball.y = height - height /10
             ball.body.setVelocity(0)
+            this.score += 1;
         })
 
-        
+
 
         // ball/wall collision
         this.physics.add.collider(this.ball, this.walls)
@@ -85,12 +96,16 @@ class Play extends Phaser.Scene {
         // ball/one-way collision
         this.physics.add.collider(this.ball, this.oneWay)
 
+     
     }
 
 
     update() {
         //Create and display shot counter, score, and successful shot percentage
-
+        this.add.text(10,10, 'Make the shot into the cup!\nClick to shoot the ball.', { font: '16px Arial', fill: '#000000' })
+        //just the score
+       // this.add.text(10,40, `Score: ${this.shots}`, { font: '16px Arial', fill: '#000000', backgroundColor: '#FFFFFF' })
+        this.add.text(10,70, `Shots Taken: ${this.shots}\nSuccessful Shots: ${this.score}\nSuccess Rate: ${this.hitMisses.toFixed(2)}%`, { font: '16px Arial', fill: '#000000', backgroundColor: '#FACADE' })
     }
 
 }
@@ -100,7 +115,7 @@ class Play extends Phaser.Scene {
 CODE CHALLENGE
 Try to implement at least 3/4 of the following features during the remainder of class (hint: each takes roughly 15 or fewer lines of code to implement):
 [X] Add ball reset logic on successful shot (Do this one)
-[ ] Improve shot logic by making pointer’s relative x-position shoot the ball in correct x-direction (Do this one)
-[X] Make one obstacle move left/right and bounce against screen edges (WALL 2)
-[ ] Create and display shot counter, score, and successful shot percentage (Do this one)
+[X] Improve shot logic by making pointer’s relative x-position shoot the ball in correct x-direction (Do this one)
+[X] Make one obstacle move left/right and bounce against screen edges (Do this with WALL 2)
+[X] Create and display shot counter, score, and successful shot percentage (Do this one)
 */

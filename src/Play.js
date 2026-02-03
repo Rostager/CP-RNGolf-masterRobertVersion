@@ -76,11 +76,12 @@ class Play extends Phaser.Scene {
             ball.body.setVelocity(0)
         })
 
+        
 
         // ball/wall collision
         this.physics.add.collider(this.ball, this.walls)
 
-
+        
         // ball/one-way collision
         this.physics.add.collider(this.ball, this.oneWay)
 
